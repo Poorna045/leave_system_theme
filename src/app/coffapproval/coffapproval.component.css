@@ -1,0 +1,17 @@
+label {
+     margin-bottom: 0px;
+}
+select.input-sm {
+    height: 38px !important;
+
+}
+.ng2-opd-popup-well{
+   
+    margin-left: -1px !important;
+}
+.ng2-opd-popup-well, .ng2-opd-popup-well-sm{
+margin-left: -1px !important;
+}
+#ng2-opd-popup-well{
+margin-left: -1px !important;
+}

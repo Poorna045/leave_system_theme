@@ -1,0 +1,165 @@
+<toaster-container [toasterconfig]="toasterconfig">
+</toaster-container>
+<div class="row">
+  <div class="col-md-12">
+    <!-- <div class="panel panel-info">
+    <div class="panel-heading">
+      <div class="panel-title">
+        Apply Leave
+      </div>
+    </div>
+    <div class="panel-body"> -->
+    <div class="portlet portlet-default">
+      <div class="portlet-heading">
+        <div class="portlet-title">
+          <h4>Apply Leave</h4>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="portlet-body">
+        <form class="form-horizontal" #form="ngForm" (ngSubmit)="submitLeave(form.value)">
+          <div class="form-group">
+            <label class="control-label col-sm-4 "> <br> From :</label>
+            <div class="col-sm-5">
+              <label class="radio-inline">  <input type="radio" checked="checked" name="from" value="morning" (change)="onPropertyChange('from')" [(ngModel)]="starting.from">Morning</label>
+              <label class="radio-inline"> <input type="radio" name="from" value="afternoon" (change)="onPropertyChange('from')" [(ngModel)]="starting.from">Afternoon</label>
+              <span *ngIf=" from1 == 'r'" style="color:red">{{disp1}}</span><br>
+              <my-date-picker [(ngModel)]="fromdate" locale="en" #start name="startdate" placeholder="eg:23-04-2017" required [options]="myDatePickerOptions"
+                (dateChanged)="onDateChanged($event)"></my-date-picker>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4 "> <br>To : </label>
+            <div class="col-sm-5">
+              <label class="radio-inline"> <input type="radio" name="to" (change)="onPropertyChange('to')" value="afternoon" [(ngModel)]="starting.to">Afternoon</label>
+              <label class="radio-inline"> <input type="radio" checked name="to" (change)="onPropertyChange('to')" value="evening" [(ngModel)]="starting.to">Evening</label>
+              <span *ngIf="to1 == 'r'" style="color:red">{{disp2}}</span>
+              <my-date-picker #end name="enddate" locale="en" [(ngModel)]="todate" [options]="myDatePickerOptions2" placeholder="eg:24-04-2017"
+                required (dateChanged)="onDateChanged2($event)"></my-date-picker>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4 ">No of Days : </label>
+            <div class="col-sm-5">
+              <input type="number" disabled class="form-control" [(ngModel)]="count" #days name="days"><span *ngIf="count<0"
+                style="color:red">{{disp}}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4 ">Type Of Leave : </label>
+            <div class="col-sm-2">
+              <div class="dropdown">
+                <button required class=" form-control btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{types}}<span class="caret"></span></button>
+                <ul class="dropdown-menu" required>
+                  <li *ngFor="let a of leavetype"> <a (click)="Type(a.type)">{{a.type}}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="role != 'Dean' && role != 'Principal' " >
+            <div class="form-group">
+              <label class="control-label col-sm-4 ">Alternate Choose : </label>
+              <div class="col-sm-5">
+                <div class="btn-group">
+                  <button required class="form-control btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{College}} <span class="caret"></span></button>
+                  <ul class="dropdown-menu" required>
+                    <li *ngFor="let a of collegeInfo "> <a (click)="collegeS(a)">{{a}}</a></li>
+                  </ul>
+                </div>
+                <div class="btn-group">
+                  <button required class="form-control btn btn-default dropdown-toggle col-sm-offset-1" type="button" data-toggle="dropdown">{{Department}} <span class="caret"></span></button>
+                  <ul class="dropdown-menu " required>
+                    <li *ngFor="let a of departmentInfo"> <a (click)="departmentS(a)">{{a}}</a></li>
+                  </ul>
+                </div>
+                <div class="btn-group ">
+                  <button required class="form-control btn btn-default dropdown-toggle col-sm-offset-1" type="button" data-toggle="dropdown">{{Person}}<span class="caret"></span></button>
+                  <ul [ngClass]="(staffdeptdata.length > 5) ? 'dropdown-menu scroll-height' : 'dropdown-menu'" required>
+                    <li *ngFor="let a of staffdeptdata"> <a (click)="personS(a.name,a.reg_no,a.email)">{{a.name}}<small> {{ a.reg_no}}</small></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4 ">Reason:</label>
+            <div class="col-sm-5">
+              <textarea class="form-control" (ngModelChange)="removespaces($event)" rows="5" required [(ngModel)]="leaveIssue.reason "
+                name="reason" id="comment" placeholder="Enter Reason"></textarea>
+            </div>
+          </div>
+          <div *ngIf="role!='Principal'" class="form-group">
+            <label class="control-label col-sm-4 ">Also Intimate To:</label>
+            <div class="col-sm-5">
+              <label *ngFor="let email of emails" class="checkbox-inline">
+              <input type="checkbox"   [(ngModel)]="email.selected" name="check" (change)="checkemail(email)" value="">{{email.designation}}
+            </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 "></label>
+            <div class="col-sm-5">
+              <input  type="submit" name="submit" [disabled]="starting.from == '' || to == '' || types == 'SELECT' || from == ''  || starting.to == '' || removespc == '' || count<=0 || ( role != 'Principal' &&  role != 'Dean' && (Department == 'Department' || College == 'College' || Person == 'Person') )"
+                value="Submit " class="btn btn-default btn-square">
+              <input type="button" (click)="reset()" value="reset" class="btn btn-danger btn-square">
+            </div>
+          </div>
+        </form>
+        <div *ngIf="show">
+          <div class="alert alert-success" role="alert">you are successfully submitted your leave request!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<popup #popup1 (confirmClick)="ResponseR()">
+  <div>
+    <div>
+      <div>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>Reject Reason</h4>
+      </div>
+      <form #form2="ngForm">
+        <div>
+          <table id="employee" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Type of leave</th>
+                <th>Applied Leaves</th>
+                <th>Available Leaves</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{leaveIssue.type }}</td>
+                <td><span class="label label-warning">{{count}}</span></td>
+                <td><span class="label label-primary">{{value}}</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <h5>Your submitted leaves are not enough to carry. please go with LOP </h5>
+          </div>
+          <div>
+            <h5>Please Go these <strong>{{value }}</strong> leaves with {{leaveIssue.type }} and <strong>{{diff}}</strong> leaves
+              with LOP . </h5>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</popup>
+<popup #popup2 (confirmClick)="ok()">
+  <div>
+    <div>
+      <div>
+        <h4>Already Exists!</h4>
+      </div>
+      <div class="alert alert-danger " role="alert ">You are Already Applied in those days. Please check once and Apply!</div>
+    </div>
+    <div>
+      <button class="btn btn-primary pull-right" (click)="ok()">Ok</button>
+    </div>
+    <br>
+  </div>
+</popup>

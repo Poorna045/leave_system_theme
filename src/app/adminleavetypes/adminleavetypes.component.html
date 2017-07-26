@@ -1,0 +1,121 @@
+<toaster-container [toasterconfig]="toasterconfig">
+</toaster-container>
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet portlet-default">
+      <div class="portlet-heading">
+        <div class="portlet-title">
+          <h4>Admin Leave Types</h4>
+        </div>
+        <div class="portlet-widgets">
+          <a (click)="get()" style="cursor: pointer !important"><i class="fa fa-plus-square" style="font-size:15px"></i>&nbsp; Add leave </a>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="portlet-body">
+        <form #form="ngForm">
+          <table class="table table-striped table-bordered dt-responsive nowrap table-hover table-green">
+            <thead>
+              <tr>
+                <th style="text-align:center">#</th>
+                <th style="text-align:center">Leave Type</th>
+                <th style="text-align:center">Total days</th>
+                <th style="text-align:center">Carry frwd</th>
+                <th colspan="2" style="text-align:center">Response</th>
+                <th style="text-align:center">delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of leavetypes; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{a.type}}</td>
+                <td>{{a.totaldays}}</td>
+                <td *ngIf="a.carryfwd=='1'">Yes</td>
+                <td *ngIf="a.carryfwd=='0'">No</td>
+                <td style="text-align:center"><button (click)="enabpopup('enable',a)" [disabled]="a.lstatus=='enable'" class="btn btn-xs btn-success btn-square">Enable</button></td>
+                <td style="text-align:center"><button (click)="godis('disable',a)" [disabled]="a.lstatus=='disable'" class="btn btn-xs btn-warning btn-square">Disable</button></td>
+                <td style="text-align:center"><button (click)="delete(a.type)" class="btn btn-danger btn-xs btn-square">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<popup (confirmClick)="addleavetype()" #popup1>
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label for="inputEmai3" class="col-sm-3 control-label">leave type :</label>
+      <div class="col-sm-7">
+        <input type="text" class="form-control" name="email" [(ngModel)]="type" id="email" placeholder="enter leave  Eg: Sick Leave">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmai3" class="col-sm-3 control-label">status : </label>
+      <div class="col-sm-4">
+        <div class="dropdown">
+          <button required class=" form-control btn btn-default  dropdown-toggle" type="button" data-toggle="dropdown">{{status}}<span class="caret"></span></button>
+          <ul class="dropdown-menu" required>
+            <li> <a (click)="Type('enable')">enable</a></li>
+            <li> <a (click)="Type('disable')">disable</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmai3" class="col-sm-3 control-label">Total days : </label>
+      <div class="col-sm-7">
+        <input type="number" [disabled]="status=='disable'" class="form-control" name="val" [(ngModel)]="typeval" id="val">
+      </div>
+    </div>
+      <div class="form-group">
+      <label for="inputEmai3" class="col-sm-3 control-label">Carry frwd : </label>
+      <div class="col-sm-4">
+        <div class="dropdown">
+          <button required class=" form-control btn btn-default  dropdown-toggle" type="button" data-toggle="dropdown">{{show}}<span class="caret"></span></button>
+          <ul class="dropdown-menu" required>
+            <li> <a (click)="Types('1','Yes')">Yes</a></li>
+            <li> <a (click)="Types('0','No')">No</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </form>
+</popup>
+
+<popup (confirmClick)="go()" #popup4>
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label for="inputEmai3" class="col-sm-3 control-label">leave type :</label>
+      <div class="col-sm-7">
+        <input type="text" class="form-control" name="email" [(ngModel)]="typel" id="email" disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmai3" class="col-sm-3 control-label">Total days : </label>
+      <div class="col-sm-7">
+        <input type="number" class="form-control" name="val" [(ngModel)]="typeval" id="val">
+      </div>
+    </div>
+      <div class="form-group">
+      <label for="inputEmai3" class="col-sm-3 control-label">Carry frwd : </label>
+      <div class="col-sm-4">
+        <div class="dropdown">
+          <button required class=" form-control btn btn-default  dropdown-toggle" type="button" data-toggle="dropdown">{{show}}<span class="caret"></span></button>
+          <ul class="dropdown-menu" required>
+            <li> <a (click)="Types('1','Yes')">Yes</a></li>
+            <li> <a (click)="Types('0','No')">No</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </form>
+</popup>
+
+
+<popup (confirmClick)="deleteleavetype()" #popup3>
+
+  <h3>Are you sure to delete {{ltype}} .</h3>
+  <h4>It will erases all your previous data</h4>
+</popup>

@@ -1,0 +1,22 @@
+.panel-heading{
+    height: 50px;
+    top:10px; }
+.well{
+    height: 100px;
+  background-color: #0DFF92;
+}
+.panel-body{
+    color: black;
+    font:16px;
+}
+.label {
+     margin-bottom: 0px;
+}
+select.input-sm {
+    height: 38px !important;
+
+}
+
+.btn-padding{
+    padding: 8px 15px;
+}

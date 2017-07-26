@@ -1,0 +1,199 @@
+<!--<div *ngIf="this.day==today then>-->
+<div class="col-md-12">
+    <h3 *ngIf="test=='Day'">
+        {{ todaydate | date:'yyyy-MM-dd' }}
+    </h3>
+    <h3 *ngIf="test=='Year'">
+        {{ year }}
+    </h3>
+</div>
+<div class="row">
+    <form #form="ngForm">
+        <div class="btn btn-group">
+            <button class="btn btn-info" #Year value="Year" (click)="test='year'; setbutton('Year')">Year</button>
+            <button class="btn btn-info" #Month value="Month" (click)="test='Month'; setbutton('Month')">Month</button>
+            <button class="btn btn-info" #Day value="Day" (click)="setbutton('Day')">Day</button>
+        </div>
+        <div *ngIf="isSelected('Year')">
+            <app-year-picker name="year" (change)="onYearChange($event.target.value)"></app-year-picker>
+        </div>
+        <div *ngIf="isSelected('Month')">
+            <app-year-picker name="year" (change)="onYearChange($event.target.value)"></app-year-picker>
+            <app-month-picker name="month" (change)="onMonthChange($event.target.value)"></app-month-picker>
+        </div>
+        <div *ngIf="isSelected('Day')">
+            <my-date-picker name="day" class="col-sm-4" [options]="myDatePickerOptions" placeholder="{{today | date:'yMd' }}" (dateChanged)="onDateChanged($event)"></my-date-picker>
+        </div>
+        <input *ngIf="!Dean || (role=='Principal' && report)" type="button" (click)="back()" class="btn btn-xs btn-danger btn-padding pull-right col-md-1 btn-square"
+            value="Back" style="left:-19px;" />
+        <button class="btn btn-xs btn-default btn-padding pull-right col-md-1 btn-square" name="submit" (click)="getEmployeeData()"
+            value="Submit" style="left:-25px;">Submit</button>
+    </form>
+</div>
+<div class="clearfix"></div><br/>
+<div *ngIf="Dean && (role=='Dean' || role=='Management') " class="">
+    <div class="row">
+        <div *ngFor="let clg of Clgdata" class="col-sm-4">
+            <div (click)="College(clg.name)" class="portlet portlet-default">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4>{{clg.name}}</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <div class="col-sm-9"> Leaves status</div>
+                        <div class="col-sm-3"> <span class="badge blue">{{clg.y}}</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div *ngIf="principal">
+    <h4>{{this.day}}</h4>
+    <div class="row">
+        <div *ngFor="let dpt of Deptdata" class="col-sm-2">
+            <div [ngClass]="(depttype=='dpt.department') ? 'portlet portlet-blue':'portlet portlet-default'">
+                <div (click)="reports(dpt.department)" class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4>{{dpt.department}}</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div (click)="reports(dpt.department)" class="portlet-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-9">Leaves status</div>
+                            <div class="col-sm-3"> <span class="badge blue">{{dpt.y}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+            <div class="portlet portlet-green">
+                <div (click)="reports('ALL')" class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4>Total Leaves</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div (click)="reports('ALL')" class="portlet-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-9">Leaves status</div>
+                            <div class="col-sm-3"> <span class="badge blue">{{totaldept}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="report">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title col-sm-6 ">
+                        {{tablename}}
+                    </div>
+                    <div class="panel-title  pull-right">{{this.day}}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body"> -->
+            <div class="portlet portlet-blue">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4>{{tablename}}</h4>
+                    </div>
+                    <div class="portlet-widgets">
+                        <a>{{this.day}}</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            Search:
+                            <input class="form-control" name="filter" [(ngModel)]="filterQuery" />
+                        </div>
+                    </div><br>
+                    <table class="table table-striped table-bordered dt-responsive nowrap table-green" [mfData]="details| dataFilter : filterQuery"
+                        #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <mfDefaultSorter by="firstname">Name</mfDefaultSorter>
+                                </th>
+                                <th *ngIf="role!='Principal'">
+                                    <mfDefaultSorter by="college">College</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="department">Department</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="type_of_leave">Type Of Leave</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="from_date">From</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="to_date">To</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="days">Days</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="reason">Reason</mfDefaultSorter>
+                                </th>
+                                <th>
+                                    <mfDefaultSorter by="name">Status</mfDefaultSorter>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="mf.data.length != 0">
+                            <tr *ngFor="let items of mf.data">
+                                <td>{{items.firstname}}</td>
+                                <td *ngIf="role!='Principal'">{{items.college}}</td>
+                                <td>{{items.department}}</td>
+                                <td>{{items.type_of_leave}}</td>
+                                <td>{{items.from_date | date:'yyyy-MM-dd' }} <span *ngIf="items.from_date|fromhalf; let aVariable"
+                                        [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{items.from_date|fromhalf}}</span></td>
+                                <td>{{items.to_date | date:'yyyy-MM-dd' }} <span *ngIf="items.to_date|tohalf; let aVariable"
+                                        [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{items.to_date|tohalf}}</span></td>
+                                <td>{{items.days}}</td>
+                                <td><span tooltipPlacement="top" tooltip="{{items.reason}}">{{items.reason | slice:0:10}}</span></td>
+                                <td *ngIf="items.status=='Accepted'"><span class="label label-success label2">{{items.status}}</span></td>
+                                <td *ngIf="items.status=='Rejected'"><span class="label label-danger label2">{{items.status}}</span></td>
+                                <td *ngIf="items.status=='Pending'"><span class="label label-primary label2">{{items.status}}</span></td>
+                                <td *ngIf="items.status=='Alternate Suggestion'"><span class="label label-warning label2">Suggestion</span></td>
+                                <td *ngIf="items.status=='Cancelled'"><span class="label label-warning label2">{{items.status}}</span></td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="mf.data.length == 0">
+                            <tr rowspan="2">
+                                <td colspan="12">
+                                    <h4 *ngIf="mf.data.length == 0" class="text-center"> No Data found</h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot colspan="13">
+                            <tr>
+                                <td colspan="13">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,12]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+label {
+     margin-bottom: 0px;
+}
+select.input-sm {
+    height: 38px !important;
+
+}
+.btn-pm {
+    padding: 8px 10px !important;
+
+}
+.dropdown-menu>li>a {
+    padding: 9px 29px !important;
+}
+
+/*.dropdown-menu {
+    max-width: 8px !important;
+     max-height: 5px !important;
+}*/

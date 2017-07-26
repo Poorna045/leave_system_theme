@@ -1,0 +1,112 @@
+<toaster-container [toasterconfig]="toasterconfig">
+</toaster-container>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet portlet-default">
+            <div class="portlet-heading">
+                <div class="portlet-title">
+                    <h4> Assign Holidays </h4>
+                </div>
+                <div class="portlet-widgets">
+                    <a (click)="addpopup()" style="cursor: pointer !important"><i class="fa fa-plus-square" style="font-size:15px"></i>&nbsp; Add Member</a>
+                    <!-- <a (click)="addpopup()" style="cursor: pointer !important"><i class="fa fa-plus-square" style="font-size:15px"></i>&nbsp; Add Holiday</a> -->
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        Search:
+                        <input class="form-control" name="filter" [(ngModel)]="filterQuery" >
+                    </div>
+                </div>
+                <br>
+                <table id="employee" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+                    [(mfSortOrder)]="sortOrder" class="table table-striped table-bordered dt-responsive nowrap table-hover table-green"
+                    cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th><mfDefaultSorter by="#">#</mfDefaultSorter></th>
+                            <th><mfDefaultSorter by="reg_no">Reg_no</mfDefaultSorter></th>
+                            <th><mfDefaultSorter by="role">Role</mfDefaultSorter></th>
+                            <th style="text-align:center" colspan="2"><mfDefaultSorter by="holtype">Response</mfDefaultSorter></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="mf.data.length != 0">
+                        <tr *ngFor="let details of  mf.data; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{details.reg_no}}</td>
+                            <td>{{details.role}}</td>
+                            <td style="text-align:center"><button (click)="changepopup(details)" class="btn btn-xs btn-success btn-square">Change</button></td>
+                            <td style="text-align:center"><button (click)="delpopup(details)" class="btn btn-xs btn-danger btn-square">Delete</button></td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="mf.data.length == 0">
+                        <tr rowspan="2">
+                            <td colspan="12">
+                                <h4 *ngIf="mf.data.length == 0" class="text-center"> No Data found</h4>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="14">
+                                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,12]"></mfBootstrapPaginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<popup (confirmClick)="delete()" #popup3>
+    <h4>Are you sure to delete this <span style="background-color:rgba(3, 169, 243, 0.49)"> {{rolename}}</span> Role to
+        <span style="background-color:rgba(3, 169, 243, 0.49)"> {{reg_no}} </span>.</h4>
+</popup>
+<popup (confirmClick)="change()" #popup2>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="inputEmai3" class="col-sm-3 control-label">Reg No :</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" disabled name="email" [(ngModel)]="reg_no" id="email" placeholder="enter reg_no ">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmai3" class="col-sm-3 control-label">Role : </label>
+            <div class="col-sm-4">
+                <div class="dropdown">
+                    <button required class=" form-control btn btn-default  dropdown-toggle" type="button" data-toggle="dropdown">{{typess}}<span class="caret"></span></button>
+                    <ul  [ngClass]="(roles.length > 5) ? 'dropdown-menu scroll-height' : 'dropdown-menu'"  required>
+                        <li *ngFor="let a of roles"> <a (click)="Type(a.rname)">{{a.rname}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</popup>
+<popup (confirmClick)="assign()" #popup1>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="inputEmai3" class="col-sm-3 control-label">Reg No :</label>
+            <div class="col-sm-7">
+                <!--<input type="text" class="form-control" name="email" [(ngModel)]="reg_no" id="email" placeholder="enter reg_no ">-->
+                <button required class=" form-control btn btn-default  dropdown-toggle" type="button" data-toggle="dropdown">{{typesss}}<span class="caret"></span></button>
+                <ul [ngClass]="(items.length > 5) ? 'dropdown-menu scroll-height' : 'dropdown-menu'"  required>
+                    <li *ngFor="let a of items"> <a (click)="Types(a)">{{a.name }}<small> {{ a.reg_no}}</small></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmai3" class="col-sm-3 control-label">Role : </label>
+            <div class="col-sm-4">
+                <div class="dropdown">
+                    <button required class=" form-control btn btn-default  dropdown-toggle" type="button" data-toggle="dropdown">{{typess}}<span class="caret"></span></button>
+                    <ul [ngClass]="(roles.length > 5) ? 'dropdown-menu scroll-height' : 'dropdown-menu'" required>
+                        <li *ngFor="let a of roles"> <a (click)="Type(a.rname)">{{a.rname}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</popup>
