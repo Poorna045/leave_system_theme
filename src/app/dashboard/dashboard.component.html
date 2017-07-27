@@ -119,7 +119,7 @@
                 </span>
               </div>
             </li>
-            <li> <a [routerLink]="['/dashboard','dashboard' ] " *ngIf="role != 'admin' && enable==false" (click)="pagetype='dashboard'; testgo() "  [ngClass]="{'active':(pagetype=='dashboard')}"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
+            <li> <a [routerLink]="['/dashboard' ] " *ngIf="role != 'admin' && enable==false" (click)="pagetype='dashboard'; testgo() "  [ngClass]="{'active':(pagetype=='dashboard')}"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
             <li> <a [routerLink]="['/dashboard','applyleave' ] " *ngIf="role != 'Management' && role != 'admin'  && enable==false" (click)="pagetype='applyleave'; testgo() "  [ngClass]="{'active':(pagetype=='applyleave')}"><i class="fa fa-angle-double-right"></i> Apply Leave</a></li>
             <li> <a [routerLink]="['/dashboard','leavehistory' ] " *ngIf="role != 'Management' && role != 'admin'  && enable==false" (click)="pagetype='leavehistory'; testgo()  "  [ngClass]="{'active':(pagetype=='leavehistory')}"><i class="fa fa-angle-double-right"></i> Leaves History</a></li>
             <li> <a [routerLink]="['/dashboard','leaveapproval' ] " (click)="pagetype='leaveapproval'; testgo() " *ngIf="role != 'Staff' && role !='Dean' && role != 'admin' && enable==false "  [ngClass]="{'active':(pagetype=='leaveapproval')}"><i class="fa fa-angle-double-right"></i> Leave Approval</a></li>

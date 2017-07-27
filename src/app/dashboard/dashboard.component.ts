@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   leaves        = [];
   staffclgdata  = [];
   staffdeptdata = [];
-  pagetype      = this.route.snapshot.params['pagetype']
+  pagetype      = this.route.snapshot.params['page'];
 
 enable = false
   colg: string;
@@ -68,6 +68,8 @@ console.log(this.name,'name testingb    ');
 
 ngOnInit(){
  // this.name=localStorage.getItem('name')
+ console.log(this.pagetype,'snapshot pagetype');
+ 
   console.log(localStorage.getItem('reg_no'),'emp id test');
     console.log(localStorage.getItem('empName'),'emp names test');
   let reg_no = localStorage.getItem('reg_no')  //if login from raghu erp getItem('reg_no')
@@ -142,12 +144,19 @@ localStorage.setItem('email',dats.data.data[0].email);
     console.log(this.role, 'role type');
      console.log(this.dept, 'department type');
           console.log(this.colg, 'colg type');
-          if(this.role=='admin'){
+
+          console.log(this.route.snapshot.params['page'],'snapshot')
+          if(this.pagetype==undefined){
+    if(this.role=='admin'){
     this.pagetype = 'adminleavetypes'
   }else{
 this.pagetype = 'dashboard'
 
   }
+          }else{
+            this.pagetype = this.route.snapshot.params['page'];
+          }
+      
   console.log(this.pagetype);
   this.service.getholidays();
   const val={
