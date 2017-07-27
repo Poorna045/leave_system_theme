@@ -23,7 +23,7 @@
             <div class="col-sm-5">
               <label class="radio-inline">  <input type="radio" checked="checked" name="from" value="morning" (change)="onPropertyChange('from')" [(ngModel)]="starting.from">Morning</label>
               <label class="radio-inline"> <input type="radio" name="from" value="afternoon" (change)="onPropertyChange('from')" [(ngModel)]="starting.from">Afternoon</label>
-              <span *ngIf=" from1 == 'r'" style="color:red">{{disp1}}</span><br>
+              <span *ngIf=" from1 == 'r'" style="color:red">{{disp1}}</span><div class="clearfix"></div>
               <my-date-picker [(ngModel)]="fromdate" locale="en" #start name="startdate" placeholder="eg:23-04-2017" required [options]="myDatePickerOptions"
                 (dateChanged)="onDateChanged($event)"></my-date-picker>
             </div>
@@ -33,7 +33,7 @@
             <div class="col-sm-5">
               <label class="radio-inline"> <input type="radio" name="to" (change)="onPropertyChange('to')" value="afternoon" [(ngModel)]="starting.to">Afternoon</label>
               <label class="radio-inline"> <input type="radio" checked name="to" (change)="onPropertyChange('to')" value="evening" [(ngModel)]="starting.to">Evening</label>
-              <span *ngIf="to1 == 'r'" style="color:red">{{disp2}}</span>
+              <span *ngIf="to1 == 'r'" style="color:red">{{disp2}}</span><div class="clearfix"></div>
               <my-date-picker #end name="enddate" locale="en" [(ngModel)]="todate" [options]="myDatePickerOptions2" placeholder="eg:24-04-2017"
                 required (dateChanged)="onDateChanged2($event)"></my-date-picker>
             </div>
@@ -56,7 +56,7 @@
               </div>
             </div>
           </div>
-          <div *ngIf="role != 'Dean' && role != 'Principal' " >
+          <div *ngIf="role != 'Dean' && role != 'Principal' ">
             <div class="form-group">
               <label class="control-label col-sm-4 ">Alternate Choose : </label>
               <div class="col-sm-5">
@@ -75,6 +75,7 @@
                 <div class="btn-group ">
                   <button required class="form-control btn btn-default dropdown-toggle col-sm-offset-1" type="button" data-toggle="dropdown">{{Person}}<span class="caret"></span></button>
                   <ul [ngClass]="(staffdeptdata.length > 5) ? 'dropdown-menu scroll-height' : 'dropdown-menu'" required>
+                    <!-- <li> <input type="text"></li> -->
                     <li *ngFor="let a of staffdeptdata"> <a (click)="personS(a.name,a.reg_no,a.email)">{{a.name}}<small> {{ a.reg_no}}</small></a></li>
                   </ul>
                 </div>
@@ -99,7 +100,7 @@
           <div class="form-group">
             <label class="col-sm-4 "></label>
             <div class="col-sm-5">
-              <input  type="submit" name="submit" [disabled]="starting.from == '' || to == '' || types == 'SELECT' || from == ''  || starting.to == '' || removespc == '' || count<=0 || ( role != 'Principal' &&  role != 'Dean' && (Department == 'Department' || College == 'College' || Person == 'Person') )"
+              <input type="submit" name="submit" [disabled]="starting.from == '' || to == '' || types == 'SELECT' || from == ''  || starting.to == '' || removespc == '' || count<=0 || ( role != 'Principal' &&  role != 'Dean' && (Department == 'Department' || College == 'College' || Person == 'Person') )"
                 value="Submit " class="btn btn-default btn-square">
               <input type="button" (click)="reset()" value="reset" class="btn btn-danger btn-square">
             </div>

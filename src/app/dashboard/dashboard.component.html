@@ -110,7 +110,7 @@
           <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#charts">
               <i class="fa fa-calendar"></i> Leave System <i class="fa fa-caret-down"></i>
           </a>
-          <ul class="collapse nav" id="charts">
+          <ul class="nav" id="charts">
             <li class="sidebar-search hidden-sm hidden-md hidden-lg">
               <div class="input-group custom-search-form">
                 <input type="text" class="form-control" placeholder="Search...">
@@ -119,26 +119,22 @@
                 </span>
               </div>
             </li>
-            <li> <a *ngIf="role != 'admin' && enable==false" (click)="pagetype='dmdashboard'" [ngClass]="{'active':(pagetype=='dmdashboard')}"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
-            <li> <a *ngIf="role != 'Management' && role != 'admin'  && enable==false" (click)="pagetype='applyleave'" [ngClass]="{'active':(pagetype=='applyleave')}"><i class="fa fa-angle-double-right"></i> Apply Leave</a></li>
-            <li> <a *ngIf="role != 'Management' && role != 'admin'  && enable==false" (click)="pagetype='leavehistory' " [ngClass]="{'active':(pagetype=='leavehistory')}"><i class="fa fa-angle-double-right"></i> Leaves History</a></li>
-            <li> <a (click)="pagetype='leaveapproval'" *ngIf="role != 'Staff' && role !='Dean' && role != 'admin' && enable==false "
-                [ngClass]="{'active':(pagetype=='leaveapproval')}"><i class="fa fa-angle-double-right"></i> Leave Approval</a></li>
-            <li> <a (click)="pagetype='empleavesdata'" *ngIf="(role == 'Principal' || role == 'HOD' || role == 'Management') && enable==false"
-                [ngClass]="{'active':(pagetype=='empleavesdata')}"><i class="fa fa-angle-double-right"></i> Employee Leaves</a></li>
-            <li> <a *ngIf="(role == 'Staff' || role == 'HOD' ) && enable==false " (click)="pagetype='alternate'" [ngClass]="{'active':(pagetype=='alternate')}"><i class="fa fa-angle-double-right"></i> Delegation Acceptance</a></li>
-            <!-- <li> <a (click)="pagetype='reportdashboard'" *ngIf="(role == 'Principal' || role == 'Management')  && enable==false" 
-                [ngClass]="{'active':(pagetype=='reportdashboard')}"><i class="fa fa-angle-double-right"></i> Reports Dashboard</a></li> -->
-            <li> <a (click)="pagetype='rtable'" *ngIf="(role == 'Principal' || role == 'Management')  && enable==false" [ngClass]="{'active':(pagetype=='rtable')}"><i class="fa fa-angle-double-right"></i> Reports Dashboard</a></li>
-            <li> <a *ngIf="role != 'Management' && role != 'admin'  && enable==false" (click)="pagetype='coffapply' " [ngClass]="{'active':(pagetype=='coffapply')}"><i class="fa fa-angle-double-right"></i> C-off's Apply </a></li>
-            <li> <a *ngIf="role != 'Staff' && role !='Dean' && role != 'admin' && enable==false " (click)="pagetype='coffapproval' "
-                [ngClass]="{'active':(pagetype=='coffapproval')}"><i class="fa fa-angle-double-right"></i> C-off's Approval </a></li>
-            <li> <a *ngIf="role != 'Management' && role != 'admin'  && enable==false" (click)="pagetype='coffhistory' " [ngClass]="{'active':(pagetype=='coffhistory')}"><i class="fa fa-angle-double-right"></i> C-off History </a></li>
-            <li> <a *ngIf="role == 'admin' && enable==false" (click)="pagetype='adminleavetypes' " [ngClass]="{'active':(pagetype=='adminleavetypes')}"><i class="fa fa-angle-double-right"></i> Assign leave types </a></li>
-            <li> <a *ngIf="role == 'admin' && enable==false" (click)="pagetype='adminholidays' " [ngClass]="{'active':(pagetype=='adminholidays')}"><i class="fa fa-angle-double-right"></i> Assign Holidays </a></li>
-            <li> <a *ngIf="(role == 'admin' || role=='Principal') && enable==false" (click)="pagetype='assign-roles' " [ngClass]="{'active':(pagetype=='assign-roles')}"><i class="fa fa-angle-double-right"></i> Assign Roles </a></li>
-            <li> <a *ngIf="(role == 'admin' || role=='Principal') && enable==false" (click)="pagetype='assignleaves' " [ngClass]="{'active':(pagetype=='assignleaves')}"><i class="fa fa-angle-double-right"></i> Assign Leaves </a></li>
-            <li> <a *ngIf="role == 'admin' && enable==false" (click)="pagetype='config' " [ngClass]="{'active':(pagetype=='config')}"><i class="fa fa-angle-double-right"></i> Management </a></li>
+            <li> <a [routerLink]="['/dashboard','dashboard' ] " *ngIf="role != 'admin' && enable==false" (click)="pagetype='dashboard'; testgo() "  [ngClass]="{'active':(pagetype=='dashboard')}"><i class="fa fa-angle-double-right"></i> Dashboard</a></li>
+            <li> <a [routerLink]="['/dashboard','applyleave' ] " *ngIf="role != 'Management' && role != 'admin'  && enable==false" (click)="pagetype='applyleave'; testgo() "  [ngClass]="{'active':(pagetype=='applyleave')}"><i class="fa fa-angle-double-right"></i> Apply Leave</a></li>
+            <li> <a [routerLink]="['/dashboard','leavehistory' ] " *ngIf="role != 'Management' && role != 'admin'  && enable==false" (click)="pagetype='leavehistory'; testgo()  "  [ngClass]="{'active':(pagetype=='leavehistory')}"><i class="fa fa-angle-double-right"></i> Leaves History</a></li>
+            <li> <a [routerLink]="['/dashboard','leaveapproval' ] " (click)="pagetype='leaveapproval'; testgo() " *ngIf="role != 'Staff' && role !='Dean' && role != 'admin' && enable==false "  [ngClass]="{'active':(pagetype=='leaveapproval')}"><i class="fa fa-angle-double-right"></i> Leave Approval</a></li>
+            <li> <a [routerLink]="['/dashboard','empleavesdata' ] " (click)="pagetype='empleavesdata'; testgo() " *ngIf="(role == 'Principal' || role == 'HOD' || role == 'Management') && enable==false"  [ngClass]="{'active':(pagetype=='empleavesdata')}"><i class="fa fa-angle-double-right"></i> Employee Leaves</a></li>
+            <li> <a [routerLink]="['/dashboard','alternate' ] " *ngIf="(role == 'Staff' || role == 'HOD' ) && enable==false " (click)="pagetype='alternate'; testgo() "  [ngClass]="{'active':(pagetype=='alternate')}"><i class="fa fa-angle-double-right"></i> Delegation Acceptance</a></li>
+             <li> <a [routerLink]="['/dashboard','reportdashboard' ] "  (click)="pagetype='reportdashboard'; testgo() "  *ngIf="(role == 'Principal' || role == 'Management')  && enable==false" [ngClass]="{'active':(pagetype=='reportdashboard')}"><i class="fa fa-angle-double-right"></i> Reports Dashboard</a></li> 
+            <!-- <li> <a (click)="pagetype='rtable'" *ngIf="(role == 'Principal' || role == 'Management')  && enable==false" [ngClass]="{'active':(pagetype=='rtable')}"><i class="fa fa-angle-double-right"></i> Reports Dashboard</a></li> -->
+            <li> <a [routerLink]="['/dashboard','coffapply' ] " *ngIf="role != 'Management' && role != 'admin'  && enable==false" (click)="pagetype='coffapply'; testgo()  "  [ngClass]="{'active':(pagetype=='coffapply')}"><i class="fa fa-angle-double-right"></i> C-off's Apply </a></li>
+            <li> <a [routerLink]="['/dashboard','coffapproval' ] " *ngIf="role != 'Staff' && role !='Dean' && role != 'admin' && enable==false " (click)="pagetype='coffapproval'; testgo()  "  [ngClass]="{'active':(pagetype=='coffapproval')}"><i class="fa fa-angle-double-right"></i> C-off's Approval </a></li>
+            <li> <a [routerLink]="['/dashboard','coffhistory' ] " *ngIf="role != 'Management' && role != 'admin'  && enable==false"  (click)="pagetype='coffhistory'; testgo()  " [ngClass]="{'active':(pagetype=='coffhistory')}"><i class="fa fa-angle-double-right"></i> C-off History </a></li>
+            <li> <a [routerLink]="['/dashboard','adminleavetypes' ] " *ngIf="role == 'admin' && enable==false" (click)="pagetype='adminleavetypes'; testgo()  "  [ngClass]="{'active':(pagetype=='adminleavetypes')}"><i class="fa fa-angle-double-right"></i> Assign leave types </a></li>
+            <li> <a [routerLink]="['/dashboard','adminholidays' ] " *ngIf="role == 'admin' && enable==false" (click)="pagetype='adminholidays'; testgo()  "  [ngClass]="{'active':(pagetype=='adminholidays')}"><i class="fa fa-angle-double-right"></i> Assign Holidays </a></li>
+            <li> <a [routerLink]="['/dashboard','assign-roles' ] " *ngIf="(role == 'admin' || role=='Principal') && enable==false"  (click)="pagetype='assign-roles'; testgo() " [ngClass]="{'active':(pagetype=='assign-roles')}"><i class="fa fa-angle-double-right"></i> Assign Roles </a></li>
+            <li> <a [routerLink]="['/dashboard','assignleaves' ] " *ngIf="(role == 'admin' || role=='Principal') && enable==false"  (click)="pagetype='assignleaves'; testgo() " [ngClass]="{'active':(pagetype=='assignleaves')}"><i class="fa fa-angle-double-right"></i> Assign Leaves </a></li>
+            <li> <a [routerLink]="['/dashboard','config' ] " *ngIf="role == 'admin' && enable==false" (click)="pagetype='config'; testgo()  "  [ngClass]="{'active':(pagetype=='config')}"><i class="fa fa-angle-double-right"></i> Management </a></li>
 
           </ul>
         </li>
@@ -165,9 +161,10 @@
               <small>Content Overview</small>
             </h1> -->
             <ol class="breadcrumb">
-              <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
-              <span class="pull-right"><span *ngIf="utype=='adm'">REI Management</span>
-              <span *ngIf="utype=='stf'">{{colg }} {{ role}}</span>
+              <li  class="active"><a [routerLink]="['/dashboard'] " ><i class="fa fa-dashboard"></i> Dashboard</a></li>
+              <li *ngIf="pagetype!='dashboard'" class="active">{{pagetype}}</li>
+              <span class="pull-right"><span *ngIf="role=='admin' || role=='Management'">REI Management</span>
+              <span *ngIf="role!='admin' && role!='Management'">{{colg }} {{ role}}</span>
               </span>
             </ol>
           </div>
@@ -203,7 +200,7 @@
           <div *ngIf="pagetype=='empleavesdata'">
             <app-empleaves></app-empleaves>
           </div>
-          <div *ngIf="pagetype=='dmdashboard' && enable==false">
+          <div *ngIf="pagetype=='dashboard' && enable==false">
             <app-fDashboard (leavehistory)=" pagetype='leavehistory'"></app-fDashboard>
           </div>
           <!--<div *ngIf='today'>
@@ -212,9 +209,9 @@
           <div *ngIf="pagetype=='alternate'">
             <app-alternateview></app-alternateview>
           </div>
-          <!-- <div *ngIf="pagetype=='reportdashboard'">
+           <div *ngIf="pagetype=='reportdashboard'">
             <app-reportdashboard></app-reportdashboard>
-          </div> -->
+          </div> 
           <div *ngIf="pagetype=='rtable'">
             <app-rtable></app-rtable>
           </div>

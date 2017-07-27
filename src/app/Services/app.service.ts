@@ -180,6 +180,8 @@ export class AppService {
   // private deleteconfigUrl = "http://210.16.79.137/raghuerp/leavesystem/server/deleteconfig";
   // private addconfigUrl    = "http://210.16.79.137/raghuerp/leavesystem/server/addconfig";
 
+
+  
   data: any
   constructor(private http: Http) {
     // this.newData().subscribe(data => console.log(data, 'sql data in serviceee'))

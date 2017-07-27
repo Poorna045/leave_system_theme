@@ -114,7 +114,7 @@
                         <h4>{{tablename}}</h4>
                     </div>
                     <div class="portlet-widgets">
-                        <a>{{this.day}}</a>
+                        <a>{{day}}</a>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -169,7 +169,7 @@
                                 <td>{{items.to_date | date:'yyyy-MM-dd' }} <span *ngIf="items.to_date|tohalf; let aVariable"
                                         [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{items.to_date|tohalf}}</span></td>
                                 <td>{{items.days}}</td>
-                                <td><span tooltipPlacement="top" tooltip="{{items.reason}}">{{items.reason | slice:0:10}}</span></td>
+                                <td><span tooltipPlacement="top" tooltip="{{items.reason}}">{{items.reason | slice:0:10}}..</span></td>
                                 <td *ngIf="items.status=='Accepted'"><span class="label label-success label2">{{items.status}}</span></td>
                                 <td *ngIf="items.status=='Rejected'"><span class="label label-danger label2">{{items.status}}</span></td>
                                 <td *ngIf="items.status=='Pending'"><span class="label label-primary label2">{{items.status}}</span></td>

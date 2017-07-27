@@ -6,6 +6,12 @@ select.input-sm {
 
 }
 .scroll-height{
-    height: 200px;
+    height  : 200px;
     overflow: scroll;
 }
+
+.form-horizontal .control-label, .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline {
+   
+    padding-bottom: 6px !important;
+}
+

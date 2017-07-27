@@ -7,17 +7,13 @@
         <div class="portlet-title">
           <h4> C-off's Approval</h4>
         </div>
+          <div class="portlet-widgets">
+                    <input class="form-control" name="filter" placeholder=" Search" [(ngModel)]="filterQuery" />
+                </div>
         <div class="clearfix"></div>
       </div>
       <div class="portlet-body">
         <form #form="ngForm">
-          <div class="row">
-            <div class="col-md-5">
-              Search:
-              <input class="form-control" name="filter" [(ngModel)]="filterQuery" />
-            </div>
-          </div>
-          <br>
           <!--<table id="employee" class="table table-striped table-bordered dt-responsive nowrap" [mfData]="data | dataFilter : filterQuery"
           #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder" cellspacing="0" width="100%">-->
           <table id="employee" class="table table-striped table-bordered dt-responsive nowrap table-hover table-green" [mfData]="data | dataFilter : filterQuery"
@@ -60,14 +56,14 @@
             <tbody *ngIf="mf.data.length != 0">
               <tr *ngFor=" let a of mf.data; let i = index">
                 <td>{{i+1}}</td>
-                <td><span tooltipPlacement="top" tooltip="{{a.dispname}}">{{a.dispname | slice:0:6}}</span></td>
+                <td><span tooltipPlacement="top" tooltip="{{a.dispname}}">{{a.dispname | slice:0:6}}..</span></td>
                 <td *ngIf=" role == 'Management'">{{a.college}}</td>
                 <td *ngIf="role == 'Principal' || role == 'Management'">{{a.department}}</td>
-                <td><span tooltipPlacement="top" tooltip="{{a.designation}}">{{a.designation | slice:0:6}}</span></td>
+                <td><span tooltipPlacement="top" tooltip="{{a.designation}}">{{a.designation | slice:0:6}}..</span></td>
                 <td>{{a.from_date | date:'yyyy-MM-dd' }} <span *ngIf="a.from_date|fromhalf; let aVariable" [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{a.from_date|fromhalf}}</span></td>
                 <td>{{a.to_date | date:'yyyy-MM-dd' }} <span *ngIf="a.to_date|tohalf; let aVariable" [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{a.to_date|tohalf}}</span></td>
                 <td>{{a.days}}</td>
-                <td><span tooltipPlacement="top" tooltip="{{a.reason}}">{{a.reason |  slice:0:10}}</span></td>
+                <td><span tooltipPlacement="top" tooltip="{{a.reason}}">{{a.reason |  slice:0:10}}..</span></td>
                 <td *ngIf="a.status=='Pending'"><a (click)="assignData(a)" data-toggle="modal" data-target="#accept" class="btn btn-success btn-xs btn-square">Accept</a></td>
                 <td *ngIf="a.status=='Pending'"> <a (click)="assignData(a); cancelreason()" data-toggle="modal" data-target="#reject" class="btn btn-danger btn-xs btn-square">Reject</a></td>
                 <td colspan="2" style="text-align:center" *ngIf="a.status == 'Cancelled'"><span class="label label-info label2">{{a.status}}</span></td>

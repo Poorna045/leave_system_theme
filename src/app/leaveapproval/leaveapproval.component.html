@@ -2,30 +2,18 @@
 </toaster-container>
 <div class="row">
   <div class="col-md-12">
-
-    <!-- <div class="panel panel-info">
-    <div class="panel-heading">
-      <div class="panel-title">
-        Employee Leaves Approval
-      </div>
-    </div>
-    <div class="panel-body"> -->
-    <div class="portlet portlet-default">
-      <div class="portlet-heading">
-        <div class="portlet-title">
-          <h4>Employee Leaves Approval</h4>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      <div class="portlet-body">
-        <form #form="ngForm">
-          <div class="row">
-            <div class="col-md-5">
-              Search:
-              <input class="form-control" name="filter" [(ngModel)]="filterQuery" />
-            </div>
+    <form #form="ngForm">
+      <div class="portlet portlet-default">
+        <div class="portlet-heading">
+          <div class="portlet-title">
+            <h4>Employee Leaves Approval</h4>
           </div>
-          <br>
+          <div class="portlet-widgets">
+            <input class="form-control" name="filter" placeholder=" Search" [(ngModel)]="filterQuery" />
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="portlet-body">
           <table id="employee" class="table table-striped table-bordered dt-responsive nowrap table-green" [mfData]="data | dataFilter : filterQuery"
             #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder" cellspacing="0"
             width="100%">
@@ -79,7 +67,7 @@
                 <td>
                   <a (mouseover)="id=a.reg_no; avlid=a.leave_id; typeofL=a.type_of_leave; a.s=i+1; go(a.dispname,a.previous,a.lop) " (mouseout)="hoverout() "
                     class="text-blue">
-                    <u>{{a.dispname | slice:0:7}}</u>
+                    <u>{{a.dispname | slice:0:7}}..</u>
                   </a>
                 </td>
 
@@ -87,9 +75,9 @@
 
                 <td *ngIf="role == 'Principal' || role == 'Management'">{{a.department}}</td>
 
-                <td><span tooltipPlacement="top" tooltip="{{a.designation}}">{{a.designation | slice:0:6}}</span></td>
+                <td><span tooltipPlacement="top" tooltip="{{a.designation}}">{{a.designation | slice:0:6}}..</span></td>
 
-                <td><span tooltipPlacement="top" tooltip="{{a.type_of_leave}}">{{a.type_of_leave  |  slice:0:6}}</span></td>
+                <td><span tooltipPlacement="top" tooltip="{{a.type_of_leave}}">{{a.type_of_leave  |  slice:0:6}}..</span></td>
 
                 <!--<td *ngIf="a.alternateStatus=='Pending' && a.role != 'Dean' && a.role != 'Principal'"> <span tooltipPlacement="top" tooltip="{{a.Altername}}"> {{a.Altername |slice:0:6 }}</span> <span class="badge badge-info "
                   style="float:right"> p </span></td>
@@ -102,14 +90,14 @@
               <td *ngIf="a.alternateStatus=='Pending' && (a.role == 'Dean' || a.role== 'Principal')"><span tooltipPlacement="top" tooltip="{{a.Altername}}"> {{a.Altername |slice:0:6 }}</span> </td>-->
 
                 <td *ngIf="role!='Management'">
-                  <span *ngIf="a.alternateStatus=='Pending' && a.Altername!=''" tooltipPlacement="top" tooltip="{{a.Altername}} ,colg - {{a.Altercolg}} ,dept - {{a.Alterdept}}"> {{a.Altername |slice:0:6 }}</span>                  <span *ngIf="a.alternateStatus=='Pending' && a.Altername!=''" tooltipPlacement="top" tooltip="Pending"
+                  <span *ngIf="a.alternateStatus=='Pending' && a.Altername!=''" tooltipPlacement="top" tooltip="{{a.Altername}} ,colg - {{a.Altercolg}} ,dept - {{a.Alterdept}}"> {{a.Altername |slice:0:6 }}..</span>                  <span *ngIf="a.alternateStatus=='Pending' && a.Altername!=''" tooltipPlacement="top" tooltip="Pending"
                     class="badge blue " style="float:right"> p </span>
-                  <span *ngIf="a.alternateStatus=='Pending' && a.Altername==''" tooltipPlacement="top" tooltip="{{a.Altername}}"> {{a.Altername |slice:0:6 }}</span>                  <span *ngIf="a.alternateStatus=='Pending' && a.Altername==''">  </span>
+                  <span *ngIf="a.alternateStatus=='Pending' && a.Altername==''" tooltipPlacement="top" tooltip="{{a.Altername}}"> {{a.Altername |slice:0:6 }}..</span>                  <span *ngIf="a.alternateStatus=='Pending' && a.Altername==''">  </span>
 
-                  <span *ngIf="a.alternateStatus=='Accepted'" tooltipPlacement="top" tooltip="{{a.Altername}} ,colg - {{a.Altercolg}} ,dept - {{a.Alterdept}}"> {{a.Altername |slice:0:6 }}</span>                  <span *ngIf="a.alternateStatus=='Accepted'" tooltipPlacement="top" tooltip="Accepted" class="badge green "
+                  <span *ngIf="a.alternateStatus=='Accepted'" tooltipPlacement="top" tooltip="{{a.Altername}} ,colg - {{a.Altercolg}} ,dept - {{a.Alterdept}}"> {{a.Altername |slice:0:6 }}..</span>                  <span *ngIf="a.alternateStatus=='Accepted'" tooltipPlacement="top" tooltip="Accepted" class="badge green "
                     style="float:right"> <i class="fa fa-check" style="font-size:9px"></i> </span>
 
-                  <span *ngIf="a.alternateStatus=='Rejected'" tooltipPlacement="top" tooltip="{{a.Altername}} ,colg - {{a.Altercolg}} ,dept - {{a.Alterdept}}"> {{a.Altername |slice:0:6 }}</span>
+                  <span *ngIf="a.alternateStatus=='Rejected'" tooltipPlacement="top" tooltip="{{a.Altername}} ,colg - {{a.Altercolg}} ,dept - {{a.Alterdept}}"> {{a.Altername |slice:0:6 }}..</span>
                   <span *ngIf="a.alternateStatus=='Rejected'" class="badge red" tooltipPlacement="top" tooltip="Delegated person Rejected -> {{ a.delegatedreason}}"
                     style="float:right"> <i class="fa fa-times" aria-hidden="true"></i> </span>
 
@@ -120,7 +108,7 @@
 
                 <td>{{a.days}}</td>
 
-                <td><span tooltipPlacement="top" tooltip="{{a.reason}}">{{a.reason |  slice:0:6}}</span></td>
+                <td><span tooltipPlacement="top" tooltip="{{a.reason}}">{{a.reason |  slice:0:6}}..</span></td>
 
                 <!-- <td *ngIf="role=='Principal' && a.role=='Staff'"><span tooltipPlacement="top" tooltip="{{a.Hodname}}">{{a.Hodname | slice:0:6}}</span></td>
                 <td *ngIf="role=='Principal' && a.role!='Staff'"></td> -->
@@ -153,10 +141,9 @@
               </tr>
             </tfoot>
           </table>
-        </form>
+        </div>
       </div>
-    </div>
-
+    </form>
   </div>
 </div>
 

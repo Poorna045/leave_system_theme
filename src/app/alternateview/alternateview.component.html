@@ -64,15 +64,15 @@
               <tr *ngFor=" let a of mf.data; let i = index">
                 <td>{{i+1}}</td>
 
-                <td *ngIf="a.status=='Pending'"> <span tooltipPlacement="top" tooltip="{{a.dispname}}"> {{a.dispname |slice:0:6 }}</span> <span tooltipPlacement="top"
+                <td *ngIf="a.status=='Pending'"> <span tooltipPlacement="top" tooltip="{{a.dispname}}"> {{a.dispname |slice:0:6 }}..</span> <span tooltipPlacement="top"
                     tooltip="Pending" class="badge blue " style="float:right"> p </span></td>
-                <td *ngIf="a.status=='Accepted'"> <span tooltipPlacement="top" tooltip="{{a.dispname}}"> {{a.dispname |slice:0:6 }}</span> <span tooltipPlacement="top"
+                <td *ngIf="a.status=='Accepted'"> <span tooltipPlacement="top" tooltip="{{a.dispname}}"> {{a.dispname |slice:0:6 }}..</span> <span tooltipPlacement="top"
                     tooltip="Accepted" class="badge green " style="float:right"> <i class="fa fa-check" style="font-size:9px"></i> </span></td>
-                <td *ngIf="a.status=='Rejected'"> <span tooltipPlacement="top" tooltip="{{a.dispname}}"> {{a.dispname |slice:0:6 }}</span> <span tooltipPlacement="top"
+                <td *ngIf="a.status=='Rejected'"> <span tooltipPlacement="top" tooltip="{{a.dispname}}"> {{a.dispname |slice:0:6 }}..</span> <span tooltipPlacement="top"
                     tooltip="Rejected by {{a.rejectedby}}" class="badge red" style="float:right"> <i class="fa fa-times" aria-hidden="true"></i> </span></td>
-                <td *ngIf="a.status=='Alternate Suggestion'"> <span tooltipPlacement="top" tooltip="{{a.dispname}}"> {{a.dispname |slice:0:6 }}</span> <span tooltipPlacement="top"
+                <td *ngIf="a.status=='Alternate Suggestion'"> <span tooltipPlacement="top" tooltip="{{a.dispname}}"> {{a.dispname |slice:0:6 }}..</span> <span tooltipPlacement="top"
                     tooltip="Alternate suggestion by {{a.rejectedby}}" class="badge purple " style="float:right"> s </span></td>
-                <td *ngIf="a.status=='Cancelled'"> <span tooltipPlacement="top" tooltip="{{a.dispname}}"> {{a.dispname |slice:0:6 }}</span> <span tooltipPlacement="top"
+                <td *ngIf="a.status=='Cancelled'"> <span tooltipPlacement="top" tooltip="{{a.dispname}}"> {{a.dispname |slice:0:6 }}..</span> <span tooltipPlacement="top"
                     tooltip="Cancelled" class="badge orange " style="float:right"> c </span></td>
 
                 <td>{{a.college}}</td>
@@ -81,7 +81,7 @@
 
                 <td>{{a.designation}}</td>
 
-                <td><span tooltipPlacement="top" tooltip="{{a.type_of_leave}}"> {{a.type_of_leave |slice:0:6 }}</span></td>
+                <td><span tooltipPlacement="top" tooltip="{{a.type_of_leave}}"> {{a.type_of_leave |slice:0:6 }}..</span></td>
 
                 <td>{{a.from_date | date:'yyyy-MM-dd' }} <span *ngIf="a.from_date|fromhalf; let aVariable" [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{ a.from_date|fromhalf}}</span></td>
 
@@ -89,7 +89,7 @@
 
                 <td>{{a.days}}</td>
 
-                <td><span tooltipPlacement="top" tooltip="{{a.reason}}">{{a.reason |  slice:0:10}}</span></td>
+                <td><span tooltipPlacement="top" tooltip="{{a.reason}}">{{a.reason |  slice:0:10}}..</span></td>
 
 
                 <td colspan="2" *ngIf="a.status=='Rejected' || a.status=='Cancelled' || a.status=='Alternate Suggestion'"><span class="label label-warning label2">Cancelled</span></td>

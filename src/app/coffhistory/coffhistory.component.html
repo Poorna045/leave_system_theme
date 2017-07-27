@@ -7,16 +7,12 @@
                 <div class="portlet-title">
                     <h4>Management Details</h4>
                 </div>
+                 <div class="portlet-widgets">
+                    <input class="form-control" name="filter" placeholder=" Search" [(ngModel)]="filterQuery" />
+                </div>
                 <div class="clearfix"></div>
             </div>
             <div class="portlet-body">
-                <div class="row">
-                    <div class="col-md-5">
-                        Search:
-                        <input class="form-control" name="filter" [(ngModel)]="filterQuery" />
-                    </div>
-                </div>
-                <br>
                 <!--<table [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder"
                     class="table table-hover table-bordered dt-responsive nowrap" cellspacing="0" width="100%">-->
                 <table [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder"
@@ -49,7 +45,7 @@
                                     [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{ item.from_date|fromhalf}}</span></td>
                             <td>{{item.to_date | date:'yyyy-MM-dd' }} <span *ngIf="item.to_date|tohalf; let aVariable" [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{ item.to_date|tohalf}}</span></td>
                             <td>{{item.days}}</td>
-                            <td><span tooltipPlacement="top" tooltip="{{item.reason}}">{{item.reason |  slice:0:6}}</span></td>
+                            <td><span tooltipPlacement="top" tooltip="{{item.reason}}">{{item.reason |  slice:0:6}}..</span></td>
                             <!--<td *ngIf="role != 'Dean' && role != 'Principal' && role !='Management'">{{item.Altername}}  <span class="badge badge-info " style="float:right"> p </span></td>-->
                             <td *ngIf="item.status == 'Accepted'"><span tooltipPlacement="top" tooltip="Your request is Accepted " class="label label-success label2">{{item.status}}</span></td>
                             <td *ngIf="item.status == 'Pending'"><span tooltipPlacement="top" tooltip="Your request is under process " class="label label-primary label2">{{item.status}}</span></td>
