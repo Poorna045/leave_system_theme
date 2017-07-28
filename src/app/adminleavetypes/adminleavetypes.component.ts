@@ -47,15 +47,7 @@ export class AdminleavetypesComponent implements OnInit {
       this.leavetypes = data
 
     });
-    setTimeout(function () {
-      $(function () {
-        $("#sidebar-toggle").click(function (e) {
-          e.preventDefault();
-          $(".navbar-side").toggleClass("collapsed");
-          $("#page-wrapper").toggleClass("collapsed");
-        });
-      });
-    }, 1000)
+  
   }
 
   enabpopup(status, a) {

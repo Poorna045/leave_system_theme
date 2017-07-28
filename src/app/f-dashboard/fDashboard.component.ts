@@ -8,8 +8,8 @@ declare var $;
 })
 
 export class FDashboardComponent implements OnInit {
-                          lsleaves       = [];
-                  @Output() leavehistory = new EventEmitter()
+                                  lsleaves       = [];
+                          @Output() leavehistory = new EventEmitter()
 
   testingfrom
   deptdata = [];
@@ -462,8 +462,8 @@ export class FDashboardComponent implements OnInit {
 
         data.splice(data.length - 2, 2)
         console.log(data.length, 'daaaaa', data);
-                    this.leaves = data
-                let gender      = localStorage.getItem('gender');
+                        this.leaves = data
+                    let gender      = localStorage.getItem('gender');
         for (var i = 0; i < this.leaves.length; i++) {
           if(this.leaves[i].type=='Maternaty Leave' && gender=='M'){
                 // nothing
@@ -487,15 +487,7 @@ export class FDashboardComponent implements OnInit {
       });
     }
 
-    setTimeout(function () {
-      $(function () {
-        $("#sidebar-toggle").click(function (e) {
-          e.preventDefault();
-          $(".navbar-side").toggleClass("collapsed");
-          $("#page-wrapper").toggleClass("collapsed");
-        });
-      });
-    }, 1000)
+  
   }
   getFulldata() {
     // this.dash = false

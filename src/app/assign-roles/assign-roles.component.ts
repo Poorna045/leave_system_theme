@@ -117,7 +117,7 @@ this.college = localStorage.getItem('empcolg')
         for(var j=0;j<this.staffdata.length;j++){
         
        for(var i=0;i<dat.length;i++){
-         if(dat[i].reg_no==this.staffdata[j].reg_no && this.staffdata[j].college==this.college && dat[i].role!='Principal' ){
+         if(dat[i].reg_no==this.staffdata[j].reg_no && this.staffdata[j].college==this.college && (dat[i].role=='HOD' || dat[i].role=='Dean') ){
            this.data.push(dat[i])
            break;
          }
@@ -169,7 +169,7 @@ delete(){
         for(var j=0;j<this.staffdata.length;j++){
         
        for(var i=0;i<dat.length;i++){
-         if(dat[i].reg_no==this.staffdata[j].reg_no && this.staffdata[j].college==this.college && dat[i].role!='Principal' ){
+         if(dat[i].reg_no==this.staffdata[j].reg_no && this.staffdata[j].college==this.college &&  (dat[i].role=='HOD' || dat[i].role=='Dean')  ){
            this.data.push(dat[i])
            break;
          }
@@ -217,7 +217,7 @@ else{
         for(var j=0;j<this.staffdata.length;j++){
         
        for(var i=0;i<dat.length;i++){
-         if(dat[i].reg_no==this.staffdata[j].reg_no && this.staffdata[j].college==this.college && dat[i].role!='Principal'){
+         if(dat[i].reg_no==this.staffdata[j].reg_no && this.staffdata[j].college==this.college &&  (dat[i].role=='HOD' || dat[i].role=='Dean') ){
            this.data.push(dat[i])
            break;
          }
@@ -259,7 +259,7 @@ change(){
         for(var j=0;j<this.staffdata.length;j++){
         
        for(var i=0;i<dat.length;i++){
-         if(dat[i].reg_no==this.staffdata[j].reg_no && this.staffdata[j].college==this.college && dat[i].role!='Principal'){
+         if(dat[i].reg_no==this.staffdata[j].reg_no && this.staffdata[j].college==this.college &&  (dat[i].role=='HOD' || dat[i].role=='Dean') ){
            this.data.push(dat[i])
            break;
          }
