@@ -22,7 +22,7 @@ keys = [];
     for (let k of this.keys) {
       // console.log(i,'ival test');
       
-    
+     if(i[k]!=null){
        if (i[k].toLowerCase().match('^.*' + query +'.*$')) {
         ans.push(i);
         break;
@@ -31,6 +31,7 @@ keys = [];
         ans.push(i);
         break;
       }
+}
     }
   }
   return ans;

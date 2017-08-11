@@ -20,10 +20,10 @@ export class ApplyleaveComponent implements OnInit {
     alldata : any;
     except  : any;
     weekends: any;
-                                                                                                                                                                    removespc     = '';
-                                                                                                                                                                    fullStaffData = []
-                                                                                                                                                                    personNo      = 'select'
-                                                                                                                                                            @Output() applyleave  = new EventEmitter()
+                                                                                                                                                                                                                                                                                    removespc     = '';
+                                                                                                                                                                                                                                                                                    fullStaffData = []
+                                                                                                                                                                                                                                                                                    personNo      = 'select'
+                                                                                                                                                                                                                                                                            @Output() applyleave  = new EventEmitter()
 
     check: boolean;
     emails    = []
@@ -152,7 +152,7 @@ export class ApplyleaveComponent implements OnInit {
         this.Person     = "Person"
 
         var dstest = this.alldata.departments[clg];
-        console.log(dstest);
+        console.log(dstest,'dttest');
 
         for (var i = 0; i < dstest.length; i++) {
 
@@ -198,8 +198,11 @@ public items:Array<string> = [];
     this.values = value;
   }
     departmentS(dept) {
-                                                  this.Department = dept
-                                            const val             = {
+          this.Department = dept
+
+            this.Person = "Person"
+                        
+       const val  = {
             utype  : 'adm',
             college: this.College,
             dept   : dept
@@ -342,6 +345,7 @@ console.log(event,'test dropdown');
         dateFormat       : 'yyyy-mm-dd',
         editableDateField: false,
         disableWeekends  : false,
+  openSelectorOnInputClick: true,
         disableDays      : this.service.holidays,
         disableUntil     : { year: this.date.getFullYear(), month: this.date.getMonth() + 1, day: this.date.getDate() - 1 }
         // disableUntil: {year: , month: 5 , day: 17}
@@ -352,6 +356,7 @@ console.log(event,'test dropdown');
         dateFormat       : 'yyyy-mm-dd',
         editableDateField: false,
         disableWeekends  : false,
+  openSelectorOnInputClick: true,
         disableDays      : this.service.holidays,
         disableUntil     : { year: this.date.getFullYear(), month: this.date.getMonth() + 1, day: this.date.getDate() - 1 }
         // disableUntil: {year: , month: 5 , day: 17}
