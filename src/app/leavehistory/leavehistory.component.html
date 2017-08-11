@@ -101,7 +101,7 @@
                             <td *ngIf="item.status == 'Alternate Suggestion'"><span tooltipPlacement="top" tooltip="Rejected By {{item.rejectedby}}" class="label label-warning label2">Suggestion</span></td>
                             <td *ngIf="item.status == 'Cancelled'"><span class="label label-info label2">{{item.status}}</span></td>
 
-                            <td *ngIf="item.status == 'Alternate Suggestion'"><span tooltipPlacement="top" tooltip="{{item.alter_reason}}">{{item.alter_reason |  slice:0:12}..}</span></td>
+                            <td *ngIf="item.status == 'Alternate Suggestion'"><span tooltipPlacement="top" tooltip="{{item.alter_reason}}">{{item.alter_reason |  slice:0:12}}..</span></td>
                             <td *ngIf="item.status == 'Rejected'"><span tooltipPlacement="top" tooltip="{{item.reject_reason}}">{{item.reject_reason |  slice:0:12}}..</span></td>
                             <td *ngIf="item.status == 'Pending'"><span tooltipPlacement="top" tooltip="{{item.remarks}}">{{item.remarks |  slice:0:12}}..</span></td>
                             <td *ngIf=" item.status == 'Accepted'"><span tooltipPlacement="top" tooltip="{{item.remarks}}">{{item.remarks|  slice:0:12}}..</span></td>
