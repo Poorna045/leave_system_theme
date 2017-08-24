@@ -1,0 +1,158 @@
+<toaster-container [toasterconfig]="toasterconfig">
+</toaster-container>
+<div class="row">
+    <div class="col-md-12">
+
+        <!-- <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title">
+                Employe Leaves History
+            </div>
+        </div>
+        <div class="panel-body"> -->
+        <div class="portlet portlet-default">
+            <div class="portlet-heading">
+                <div class="portlet-title">
+                    <h4>Employee Leaves History</h4>
+                </div>
+                  <div class="portlet-widgets">
+                    <input class="form-control" name="filter" placeholder=" Search" [(ngModel)]="filterQuery" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="portlet-body">
+                <table [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder"
+                    class="table table-hover table-bordered dt-responsive nowrap table-green table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <mfDefaultSorter by="type_of_leave">Leave Type</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="from_date">From</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="to_date">To</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="days">Duration</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="reason">Reason</mfDefaultSorter>
+                            </th>
+                            <th *ngIf="role != 'Dean' && role != 'Principal' && role !='Management'">
+                                <mfDefaultSorter by="Altername">Alter Name</mfDefaultSorter>
+                            </th>
+                            <th *ngIf="role != 'Dean' && role != 'Principal' && role !='Management'">
+                                <mfDefaultSorter by="delegatedreason">Alter Reason</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="status">Status</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="remarks">Remarks</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="remarks"> Cancellation </mfDefaultSorter>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="mf.data.length != 0">
+                        <tr *ngFor="let item of mf.data">
+
+                            <td><span tooltipPlacement="top" tooltip="{{item.type_of_leave}}"> {{item.type_of_leave |slice:0:6 }}..</span></td>
+
+                            <td>{{item.from_date | date:'yyyy-MM-dd' }} <span *ngIf="item.from_date|fromhalf; let aVariable"
+                                    [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{item.from_date|fromhalf}}</span></td>
+
+                            <td>{{item.to_date | date:'yyyy-MM-dd' }} <span *ngIf="item.to_date|tohalf; let aVariable" [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{item.to_date|tohalf}}</span></td>
+
+                            <td>{{item.days}}</td>
+
+                            <td><span tooltipPlacement="top" tooltip="{{item.reason}}">{{item.reason |  slice:0:10}}..</span></td>
+                            <!--<td *ngIf="role != 'Dean' && role != 'Principal' && role !='Management'">{{item.Altername}}  <span class="badge badge-info " style="float:right"> p </span></td>-->
+
+                            <td *ngIf="role != 'Dean' && role != 'Principal' && role !='Management' && item.alternateStatus=='Pending' && item.Altername!=''"><span tooltipPlacement="top" tooltip="{{item.Altername}} ,colg - {{item.Altercolg}} ,dept - {{item.Alterdept}}">
+                        {{item.Altername |  slice:0:7 }}..</span> <span tooltipPlacement="top" tooltip="Pending" class="badge blue "
+                                    style="float:right"> p </span></td>
+                            <td *ngIf="role != 'Dean' && role != 'Principal' && role !='Management' && item.alternateStatus=='Pending' && item.Altername==''">
+                                <span tooltipPlacement="top" tooltip="{{item.Altername}} ,colg - {{item.Altercolg}} ,dept - {{item.Alterdept}}">
+                        {{item.Altername |  slice:0:7 }}..</span> </td>
+                            <td *ngIf=" role != 'Dean' && role != 'Principal' && role !='Management' &&  item.alternateStatus=='Accepted' && item.Altername!=''">
+                                <span tooltipPlacement="top" tooltip="{{item.Altername}} ,colg - {{item.Altercolg}} ,dept - {{item.Alterdept}}">
+                        {{item.Altername |  slice:0:7 }}..</span> <span tooltipPlacement="top"
+                                    tooltip="Accepted" class="badge green " style="float:right"> <i class="fa fa-check" style="font-size:9px"></i> </span></td>
+                            <td *ngIf="role != 'Dean' && role != 'Principal' && role !='Management' && item.alternateStatus=='Accepted' && item.Altername==''">
+                                <span tooltipPlacement="top" tooltip="{{item.Altername}} ,colg - {{item.Altercolg}} ,dept - {{item.Alterdept}}">
+                        {{item.Altername |  slice:0:7 }}..</span> </td>
+                            <td *ngIf="role != 'Dean' && role != 'Principal' && role !='Management' &&  item.alternateStatus=='Rejected' && item.Altername!=''">
+                                <span tooltipPlacement="top" tooltip="{{item.Altername}} ,colg - {{item.Altercolg}} ,dept - {{item.Alterdept}}">
+                        {{item.Altername |  slice:0:7 }}..</span> <span tooltipPlacement="top"
+                                    tooltip="Rejected" class="badge red" style="float:right"> <i class="fa fa-times" aria-hidden="true"></i> </span></td>
+                            <td *ngIf="role != 'Dean' && role != 'Principal' && role !='Management' && item.alternateStatus=='Rejected' && item.Altername==''">
+                                <span tooltipPlacement="top" tooltip="{{item.Altername}} ,colg - {{item.Altercolg}} ,dept - {{item.Alterdept}}">
+                        {{item.Altername |  slice:0:7 }}..</span> </td>
+                            <td *ngIf="role != 'Dean' && role != 'Principal' && role !='Management' &&  item.alternateStatus==''"> {{item.Altername }} </td>
+
+                            <td *ngIf="role != 'Dean' && role != 'Principal' && role !='Management'  "><span tooltipPlacement="top" tooltip="{{item.delegatedreason}}">{{item.delegatedreason |  slice:0:12}}..</span></td>
+                            <td *ngIf="item.status == 'Accepted'"><span tooltipPlacement="top" tooltip="Your request is Accepted " class="label label-success label2">{{item.status}}</span></td>
+                            <td *ngIf="item.status == 'Pending'"><span tooltipPlacement="top" tooltip="Your request is under process " class="label label-primary label2">{{item.status}}</span></td>
+                            <td *ngIf="item.status == 'Rejected'"><span tooltipPlacement="top" tooltip="Rejected By {{item.rejectedby}}" class="label label-danger label2">{{item.status}}</span></td>
+                            <td *ngIf="item.status == 'Alternate Suggestion'"><span tooltipPlacement="top" tooltip="Rejected By {{item.rejectedby}}" class="label label-warning label2">Suggestion</span></td>
+                            <td *ngIf="item.status == 'Cancelled'"><span class="label label-info label2">{{item.status}}</span></td>
+
+                            <td *ngIf="item.status == 'Alternate Suggestion'"><span tooltipPlacement="top" tooltip="{{item.alter_reason}}">{{item.alter_reason |  slice:0:12}}..</span></td>
+                            <td *ngIf="item.status == 'Rejected'"><span tooltipPlacement="top" tooltip="{{item.reject_reason}}">{{item.reject_reason |  slice:0:12}}..</span></td>
+                            <td *ngIf="item.status == 'Pending'"><span tooltipPlacement="top" tooltip="{{item.remarks}}">{{item.remarks |  slice:0:12}}..</span></td>
+                            <td *ngIf=" item.status == 'Accepted'"><span tooltipPlacement="top" tooltip="{{item.remarks}}">{{item.remarks|  slice:0:12}}..</span></td>
+                            <td *ngIf=" item.status == 'Cancelled'"><span tooltipPlacement="top" tooltip="{{item.remarks}}">{{item.remarks|  slice:0:12}}..</span></td>
+
+                            <td *ngIf="(item.status == 'Accepted' || item.status == 'Pending') && today<=item.to_date"><button tooltipClass="custom-tooltip" data-toggle="modal" data-target="#cancel" (click)="lid=item.leave_id; more=item;alemail=item.altremail;"
+                                    tooltipPlacement="top" tooltip=" Click to Cancel your Applied Leave!" class="btn btn-warning btn-xs">Cancel</button></td>
+                            <td *ngIf="(item.status == 'Accepted' || item.status == 'Pending') && today>item.to_date"></td>
+                            <td *ngIf="item.status == 'Cancelled'  || item.status == 'Rejected'  || item.status == 'Alternate Suggestion'"></td>
+
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="mf.data.length == 0">
+                        <tr rowspan="2">
+                            <td colspan="12">
+                                <h4 *ngIf="mf.data.length == 0" class="text-center"> No Data found</h4>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="14">
+                                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,12]"></mfBootstrapPaginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<tooltip-content #myTooltip>
+    Click to Cancel your Applied Leave
+</tooltip-content>
+<div id="cancel" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Warning!</h4>
+            </div>
+            <form #form2="ngForm">
+                <div class="modal-body">
+                    <h3>Are you sure to cancel your leave Request</h3>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="cancelRequest(lid)" data-dismiss="modal" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -188,11 +188,8 @@ this.popup3.hide();
 
 
 assign(){
-  console.log("'a",this.status,"a'",'status testing');
-  
   if(this.status=='Permanent'){
-    this.todate='3';
-    this.upto='s';
+    this.todate=' ';
   }
 if(this.typess=='Select' || this.typesss=='Select' || this.status=='Select'||this.upto=='' || this.todate==''){
   this.popToast2();
@@ -351,8 +348,6 @@ this.typess   = role;
 }
 userType(type){
 this.status = type
-console.log(this.status);
-
 }
 
 }

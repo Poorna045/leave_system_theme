@@ -1,0 +1,124 @@
+<toaster-container [toasterconfig]="toasterconfig">
+</toaster-container>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet portlet-default">
+            <div class="portlet-heading">
+                <div class="portlet-title">
+                    <h4> Assign Holidays </h4>
+                </div>
+                <div class="portlet-widgets">
+                    <!-- <a (click)="get()" style="cursor: pointer !important"><i class="fa fa-plus-square" style="font-size:15px"></i>&nbsp; Add leave </a> -->
+                    <a (click)="addpopup()" style="cursor: pointer !important"><i class="fa fa-plus-square" style="font-size:15px"></i>&nbsp; Add Holiday</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        Search:
+                        <input class="form-control" name="filter" [(ngModel)]="filterQuery">
+                    </div>
+                </div>
+                <br>
+                <table id="employee" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+                    [(mfSortOrder)]="sortOrder" class="table table-striped table-bordered dt-responsive nowrap table-hover table-green"
+                    cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <mfDefaultSorter by="#">#</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="holdate">Date</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="holname">Holiday Name</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="holtype">Holiday Type</mfDefaultSorter>
+                            </th>
+                            <th style="text-align:center" colspan="2">
+                                <mfDefaultSorter by="holtype">Response</mfDefaultSorter>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="mf.data.length != 0">
+                        <tr *ngFor="let details of  mf.data; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{details.holdate}}</td>
+                            <td>{{details.holname}}</td>
+                            <td>{{details.holtype}}</td>
+                            <td style="text-align:center"><button (click)="editpopup(details)" class="btn btn-xs btn-success btn-square">Edit</button></td>
+                            <td style="text-align:center"><button (click)="delpopup(details.sno,details.holdate)" class="btn btn-xs btn-danger btn-square">Delete</button></td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="mf.data.length == 0">
+                        <tr rowspan="2">
+                            <td colspan="12">
+                                <h4 *ngIf="mf.data.length == 0" class="text-center"> No Data found</h4>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="14">
+                                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,12]"></mfBootstrapPaginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<popup (confirmClick)="delete()" #popup3>
+    <h3>Are you sure to delete this {{dateshow}} date.</h3>
+</popup>
+<popup (confirmClick)="edit()" #popup2>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="inputEmai3" class="col-sm-3 control-label">Holiday Date :</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="date" disabled [(ngModel)]="holdate" id="date" placeholder="  Eg: 2017-07-12">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmai3" class="col-sm-3 control-label">Holiday Name :</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="name" [(ngModel)]="holname" id="name" placeholder="enter name Eg: Gandhi jayanthi">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmai3" class="col-sm-3 control-label">Holiday Type :</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="type" [(ngModel)]="holtype" id="type" placeholder="enter type Eg: Public Holiday">
+            </div>
+        </div>
+    </form>
+</popup>
+
+<popup (confirmClick)="add()" #popup1>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="inputEmai3" class="col-sm-3 control-label">Holiday Date :</label>
+            <div class="col-sm-7">
+                <!--<input type="text" class="form-control" name="date"  [(ngModel)]="holdate" id="date" placeholder="enter date  Eg: 2017-12-09 ">-->
+                <my-date-picker #end name="enddate" locale="en" [(ngModel)]="todate" [options]="myDatePickerOptions" placeholder="eg:2017-07-12"
+                    required (dateChanged)="onDateChanged($event)"></my-date-picker>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmai3" class="col-sm-3 control-label">Holiday Name :</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="name" [(ngModel)]="holname" id="name" placeholder="enter name Eg: Gandhi jayanthi">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmai3" class="col-sm-3 control-label">Holiday Type :</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" name="type" [(ngModel)]="holtype" id="type" placeholder="enter type Eg: Public Holiday">
+            </div>
+        </div>
+    </form>
+</popup>

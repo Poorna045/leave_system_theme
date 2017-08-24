@@ -1,0 +1,102 @@
+<toaster-container [toasterconfig]="toasterconfig">
+</toaster-container>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet portlet-default">
+            <div class="portlet-heading">
+                <div class="portlet-title">
+                    <h4>Management Details</h4>
+                </div>
+                 <div class="portlet-widgets">
+                    <input class="form-control" name="filter" placeholder=" Search" [(ngModel)]="filterQuery" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="portlet-body">
+                <!--<table [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder"
+                    class="table table-hover table-bordered dt-responsive nowrap" cellspacing="0" width="100%">-->
+                <table [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder"
+                    class="table table-striped table-bordered dt-responsive nowrap table-hover table-green" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <mfDefaultSorter by="from_date">From</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="to_date">To</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="days">Duration</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="reason">Reason</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="status">Status</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="remarks"> Cancellation</mfDefaultSorter>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="mf.data.length != 0">
+                        <tr *ngFor="let item of mf.data">
+                            <td>{{item.from_date | date:'yyyy-MM-dd' }} <span *ngIf="item.from_date|fromhalf; let aVariable"
+                                    [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{ item.from_date|fromhalf}}</span></td>
+                            <td>{{item.to_date | date:'yyyy-MM-dd' }} <span *ngIf="item.to_date|tohalf; let aVariable" [ngClass]="(aVariable=='1st Half') ? 'label label-primary label2':'label label-warning label2'">{{ item.to_date|tohalf}}</span></td>
+                            <td>{{item.days}}</td>
+                            <td><span tooltipPlacement="top" tooltip="{{item.reason}}">{{item.reason |  slice:0:6}}..</span></td>
+                            <!--<td *ngIf="role != 'Dean' && role != 'Principal' && role !='Management'">{{item.Altername}}  <span class="badge badge-info " style="float:right"> p </span></td>-->
+                            <td *ngIf="item.status == 'Accepted'"><span tooltipPlacement="top" tooltip="Your request is Accepted " class="label label-success label2">{{item.status}}</span></td>
+                            <td *ngIf="item.status == 'Pending'"><span tooltipPlacement="top" tooltip="Your request is under process " class="label label-primary label2">{{item.status}}</span></td>
+                            <td *ngIf="item.status == 'Rejected'"><span tooltipPlacement="top" tooltip="Rejected By {{item.rejectedby}}" class="label label-danger label2">{{item.status}}</span></td>
+                            <td *ngIf="item.status == 'Cancelled'"><span class="label label-info label2">{{item.status}}</span></td>
+
+                            <td *ngIf="(item.status == 'Accepted' || item.status == 'Pending') && today<=item.to_date"><button tooltipClass="custom-tooltip" data-toggle="modal" data-target="#cancel" (click)="lid=item.cid; more=item;"
+                                    tooltipPlacement="top" tooltip=" Click to Cancel your Applied coff request!" class="btn btn-warning btn-xs btn-square">Cancel</button></td>
+                            <td *ngIf="(item.status == 'Accepted' || item.status == 'Pending') && today>item.to_date"></td>
+                            <td *ngIf="item.status == 'Cancelled'  || item.status == 'Rejected' "></td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="mf.data.length == 0">
+                        <tr rowspan="2">
+                            <td colspan="12">
+                                <h4 *ngIf="mf.data.length == 0" class="text-center"> No Data found</h4>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="14">
+                                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,12]"></mfBootstrapPaginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<tooltip-content #myTooltip>
+    Click to Cancel your Applied Leave
+</tooltip-content>
+<div id="cancel" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Warning!</h4>
+            </div>
+            <form #form2="ngForm">
+                <div class="modal-body">
+                    <h3>Are you sure to cancel your leave Request</h3>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="cancelRequest(lid)" data-dismiss="modal" class="btn btn-default btn-xs">Submit</button>
+                    <button class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
